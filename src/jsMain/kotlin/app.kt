@@ -1,10 +1,48 @@
+import dev.fritz2.binding.RootStore
+import dev.fritz2.binding.const
+import dev.fritz2.binding.each
+import dev.fritz2.binding.handledBy
 import dev.fritz2.dom.html.render
 import dev.fritz2.dom.mount
+import dev.fritz2.dom.values
 
 fun main() {
+    val input = object : RootStore<String>("", id = "input") {
+        val save = handleAndOffer<String> { input ->
+            offer(input)
+            input
+        }
+    }
+
+    val todos = object : RootStore<List<String>>(emptyList(), id = "todos") {
+        val addTodo = handle<String> { list, todo ->
+            list + todo
+        }
+    }
+
+    input.save handledBy todos.addTodo
+
     render {
-        p {
-            text("Hello World!")
+        div {
+            ul {
+                todos.data.each().render { todo ->
+                    li {
+                        text(todo)
+                    }
+                }.bind()
+            }
+            div("form-group") {
+                input {
+                    placeholder = const("What do you want to do?")
+                    value = input.data
+
+                    changes.values() handledBy input.update
+                }
+                button {
+                    text("Save")
+                    clicks handledBy input.save
+                }
+            }
         }
     }.mount("target")
 }

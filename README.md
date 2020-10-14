@@ -1,9 +1,9 @@
-![fritz2](https://www.fritz2.dev/images/fritz2_logo_grey.png)
+# Fritz2 Todo
 
-# A getting-started-template for fritz2-apps.
+Forked from Fritz2's [example project](fritz2-template-README.md).
 
-[![video](https://img.youtube.com/vi/c-ybTQdF5xk/0.jpg)](https://www.youtube.com/watch?v=c-ybTQdF5xk)
+## To run:
 
-Please have a look at [fritz2's documentation](https://docs.fritz2.dev) or the [examples](https://www.fritz2.dev/examples.html) to learn, how to use it.
-
-If you have any problems with this template, please open an issue at [fritz2](https://github.com/jwstegemann/fritz2/issues).
+```
+$ ./gradlew jsRun
+```

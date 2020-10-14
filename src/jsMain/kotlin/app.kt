@@ -18,6 +18,9 @@ fun main() {
         val addTodo = handle<String> { list, todo ->
             list + todo
         }
+        val deleteTodo = handle<String> { list, todo ->
+            list.minus(todo)
+        }
     }
 
     input.save handledBy todos.addTodo
@@ -27,7 +30,14 @@ fun main() {
             ul {
                 todos.data.each().render { todo ->
                     li {
-                        text(todo)
+                        div {
+                            text(todo)
+                        }
+                        a {
+                            href = const("#")
+                            text("remove")
+                            clicks.map { todo } handledBy todos.deleteTodo
+                        }
                     }
                 }.bind()
             }
